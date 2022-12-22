@@ -2,9 +2,9 @@ import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
 import debounce from 'lodash.debounce';
 
-import './css/styles.css';
+import {fetchCountries} from './js/fn-checkcountry'
 
-import { fetchCountries } from './js/fn-checkcountry';
+
 const DEBOUNCE_DELAY = 300;
 
 const inputSearch = document.querySelector("#search-box")
@@ -13,6 +13,7 @@ const Info = document.querySelector(".country-info")
 
 
 const searchCountry = ev => {
+  ev.preventDefault();
   const searchname = inputSearch.value.trim();
 
   fetchCountries(searchname)
@@ -24,8 +25,7 @@ const searchCountry = ev => {
         Notiflix.Notify.failure('Oops, there is no country with that name');
       }
     });
-
-  ev.preventDefault();
+  
 };
 
 
