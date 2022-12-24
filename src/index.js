@@ -1,8 +1,9 @@
+import './css/styles.css';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
 import debounce from 'lodash.debounce';
 
-import {fetchCountries} from './js/fn-checkcountry'
+import { fetchCountries } from './js/fn-checkcountry';
 
 
 const DEBOUNCE_DELAY = 300;
@@ -15,6 +16,7 @@ const Info = document.querySelector(".country-info")
 const searchCountry = ev => {
   ev.preventDefault();
   const searchname = inputSearch.value.trim();
+  console.log(inputSearch.value);
 
   fetchCountries(searchname)
     .then(data => {
@@ -30,6 +32,10 @@ const searchCountry = ev => {
 
 
 function countriesData(data) {
+  if (inputSearch.value === "") {
+    clearData(List);
+    clearData(Info);
+  } else
   if (data.length > 10) {
     clearData(List);
     clearData(Info);
@@ -52,8 +58,9 @@ function countriesData(data) {
                 
                 `
       )
-      .join(''));
-  } else {
+      .join(''));  
+  }
+  else { 
     clearData(List);
     clearData(Info);
 
@@ -63,9 +70,9 @@ function countriesData(data) {
                 
                     <div class = 'country'>
                     
-                        <img src = '${item.flags.svg}' />
+                        <img class = 'country_img' src = '${item.flags.svg}' />
     
-                        <div class = 'country-body'>
+                        <div class = 'country_body'>
                         
                             <h3>${item.name}</h3>
                             <p><b>Region: </b> ${item.region}</p>
@@ -79,6 +86,7 @@ function countriesData(data) {
                 `
       )
       .join(''));
+    
   }
 }
 
